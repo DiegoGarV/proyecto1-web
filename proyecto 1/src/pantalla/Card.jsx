@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types'
 import tresPuntos from '../Imagenes/tres_puntos.png'
 import React, { useState, useEffect, useRef } from 'react'
+import { useUser } from './UserContext'
 
 const Card = ({title, content, image, description, user, setRoute}) => {
     const [showOptions, setShowOptions] = useState(false)
     const modalRef = useRef(null)
     const [position, setPosition] = useState({ x: 0, y: 0 })
+    const {loggedUser, permisos} = useUser()
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -24,9 +26,9 @@ const Card = ({title, content, image, description, user, setRoute}) => {
     const postSettings = (event) => {
         event.stopPropagation()
         const {clientX, clientY} = event
-        const cardRect = modalRef.current.getBoundingClientRect()
+        const rect = event.target.getBoundingClientRect()
         setShowOptions(true)
-        setPosition({x: clientX, y: clientY})
+        setPosition({x: clientX - rect.left/2.1, y: clientY - rect.top})
     }
 
     const toEdit = () => {
@@ -69,9 +71,25 @@ const Card = ({title, content, image, description, user, setRoute}) => {
             <img src={image} alt={description} style={{ width: '100%', maxHeight: '50%', borderRadius: '10px', marginBottom: '5px' }} />
 
             {showOptions && (
-                <div ref={modalRef} style={{ position: 'absolute', top: `${position.y}px`, left: `${position.x}px`, background: 'white', padding: '20px', borderRadius: '10px', zIndex: 999}}>
-                    <button onClick={toEdit} style={{ marginRight: '10px' }}>Editar</button>
-                    <button onClick={handleDelete}>Eliminar</button>
+                <div ref={modalRef} style={{ position: 'absolute', top: `${position.y}px`, left: `${position.x}px`, background: 'white', zIndex: 999}}>
+                    {permisos === 'admin' || loggedUser === user ? (
+                        <>
+                            <button
+                                onMouseOver={(e) => e.target.style.background = 'lightgrey'}
+                                onMouseOut={(e) => e.target.style.background = 'white'}
+                                onClick={toEdit}
+                                style={{ width: '100%', padding: '10px', border: 'none', cursor: 'pointer', background: 'white', color: 'black', borderRadius: '0px' }}>Editar</button>
+                            <button
+                                onMouseOver={(e) => e.target.style.background = 'lightgrey'}
+                                onMouseOut={(e) => e.target.style.background = 'white'}
+                                onClick={handleDelete}
+                                style={{ width: '100%', padding: '10px', border: 'none', cursor: 'pointer', background: 'white', color: 'black', borderRadius: '0px' }}>Eliminar</button>
+                        </>
+                    ) : (
+                        <button
+                            onClick={() => setShowOptions(false)}
+                            style={{ width: '100%', padding: '10px', border: 'none', cursor: 'pointer', background: 'white', color: 'black', borderRadius: '0px' }}>Reportar</button>
+                    )}
                 </div>
             )}
         </div>

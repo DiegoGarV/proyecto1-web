@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { UserProvider } from './pantalla/UserContext'
 import './App.css'
 import Router from './pantalla/Router'
 
@@ -9,9 +10,9 @@ function App() {
 
   useEffect(() => {
     console.log("Se ha montado el componente")
-    console.log("RUTA ACTUAL: ", window.location.pathname);
+    console.log("RUTA ACTUAL: ", window.location.pathname)
     setRutaActual(window.location.pathname)
-    console.log(window.location);
+    console.log(window.location)
 
   }, [])
 
@@ -37,13 +38,15 @@ function App() {
   }
 
   return (
-    <div id='root' className={getBackgroundClass()}>
-      <div className='sitio-web'>
-        <div className='paginas'>
-            <Router ruta={rutaActual} setRoute={setRutaActual} tasks={tasks} setTasks={setTasks} ></Router> 
+    <UserProvider>
+      <div id='root' className={getBackgroundClass()}>
+        <div className='sitio-web'>
+          <div className='paginas'>
+              <Router ruta={rutaActual} setRoute={setRutaActual} tasks={tasks} setTasks={setTasks} ></Router> 
+          </div>
         </div>
       </div>
-    </div>
+    </UserProvider>
   )
 }
 

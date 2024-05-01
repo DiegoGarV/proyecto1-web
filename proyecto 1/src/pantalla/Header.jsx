@@ -1,36 +1,45 @@
-import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useUser } from './UserContext'
+import { useEffect, useState } from 'react'
 
 const Header = ({ setRoute }) => {
-    const [logged, setLogged] = useState(false)
+    const {logged, logout, loggedUser, permisos} = useUser()
+    const [showAlert, setShowAlert] = useState(false)
 
-    useEffect(() => {
-        const isLoggedIn = localStorage.getItem('logged') === 'true'
-        setLogged(isLoggedIn)
-    }, [])
-
-    const toggleLogin = () => {
+    const handleLogin = () => {
         if (logged) {
-            setLogged(false)
-            localStorage.setItem('logged', 'false')
+            logout()
+            setRoute('/')
         } else {
-            toLogin()
+            setRoute('/login')
         }
     }
 
-    const toAddPost = () => {
-        setRoute('/addPost')
+    // useEffect(() => {
+    //     if (!logged) {
+    //         console.log(`El usuario y los permisos se borraron correctamente: ${loggedUser} ${permisos}`)
+    //     } else {
+    //         console.log(`El usuario y los permisos son: ${loggedUser} ${permisos}`)
+    //     }
+    // }, [logged])
+
+    const toNewPost = () => {
+        if (loggedUser) {
+            setRoute('/addPost')
+        } else {
+            setShowAlert(true) // Mostrar el mensaje de alerta
+        }
     }
 
-    const toLogin = () => {
-        setRoute('/login')
+    const closeAlert = () => {
+        setShowAlert(false) // Ocultar el mensaje de alerta
     }
     
     return (
         <div id='header' style={{
             height:'auto',
             width:'100%',
-            backgroundColor:'rgba(5,94,150,0.5)',
+            backgroundColor:'rgba(55,79,137,0.7)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -51,20 +60,20 @@ const Header = ({ setRoute }) => {
                     border: 'none',
                 }} 
             />
-
             <button 
                 style={{
-                    backgroundColor: logged ? 'red' : 'green',
-                    color: 'white',
+                    backgroundColor: logged ? '#d94423' : '#55a61d',
+                    color: 'black',
                     padding: '10px 20px',
                     borderRadius: '5px',
                     border: 'none',
                     cursor: 'pointer',
                 }}
-                onClick={toggleLogin}    
+                onClick={handleLogin}    
             >
                 {logged ? 'Cerrar Sesión' : 'Iniciar Sesión'}
             </button>
+            
 
             <button 
                 style={{
@@ -76,10 +85,17 @@ const Header = ({ setRoute }) => {
                     border: 'none',
                     cursor: 'pointer',
                 }}
-                onClick={toAddPost}
+                onClick={toNewPost}
                 >
                 Agregar Post
             </button>
+
+            {showAlert && (
+                <div style={{position: 'absolute', top: '50%', left: '35%', backgroundColor: 'red', color: 'white', padding: '10px', borderRadius: '5px', zIndex: 999 }}>
+                    Debes iniciar sesión para agregar un post.
+                    <button style={{ marginLeft: '10px', backgroundColor: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }} onClick={closeAlert}>Cerrar</button>
+                </div>
+            )}
         </div>
     )
 }
