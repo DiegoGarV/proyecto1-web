@@ -1,0 +1,27 @@
+#root {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+}
+
+.bg-image-1 {
+  background-image: url('./Imagenes/backgroundImage.png');
+}
+
+.bg-image-2 {
+  background-image: url('./Imagenes/bus_background.jpg');
+}
+
+.bg-image-3 {
+  background-image: url('./Imagenes/night_background.jpg');
+}
