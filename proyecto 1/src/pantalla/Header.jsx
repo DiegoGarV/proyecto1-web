@@ -15,13 +15,13 @@ const Header = ({ setRoute }) => {
         }
     }
 
-    // useEffect(() => {
-    //     if (!logged) {
-    //         console.log(`El usuario y los permisos se borraron correctamente: ${loggedUser} ${permisos}`)
-    //     } else {
-    //         console.log(`El usuario y los permisos son: ${loggedUser} ${permisos}`)
-    //     }
-    // }, [logged])
+    useEffect(() => {
+        if (!logged) {
+            console.log(`El usuario y los permisos se borraron correctamente: ${loggedUser} ${permisos}`)
+        } else {
+            console.log(`El usuario y los permisos son: ${loggedUser} ${permisos}`)
+        }
+    }, [logged])
 
     const toNewPost = () => {
         if (loggedUser) {

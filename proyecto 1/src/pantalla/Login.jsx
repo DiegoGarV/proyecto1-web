@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useUser } from './UserContext'
 
 const Login = ({ setRoute }) => {
-    const { login, userName, userPermisos, loggedUser, permisos } = useUser()
+    const { login, userName, userPermisos } = useUser()
     const [usuario, setUsuario] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -20,7 +20,6 @@ const Login = ({ setRoute }) => {
                 userPermisos(user.posicion)
                 login()
                 setRoute('/')
-                // console.log(`El usuario ${loggedUser} tiene los permisos ${permisos}`)
             } else {
                 setError('Usuario o contraseña no válidos')
             }
