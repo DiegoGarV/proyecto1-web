@@ -30,10 +30,10 @@ function App() {
         return "bg-image-2"
       case "/addPost":
         return "bg-image-3"
-      case "/editPost":
+      case rutaActual.startsWith("/editPost") && rutaActual:
         return "bg-image-3"
       default:
-        return "bg-image-default"
+        return "bg-image-4"
     }
   }
 
@@ -42,7 +42,7 @@ function App() {
       <div id='root' className={getBackgroundClass()}>
         <div className='sitio-web'>
           <div className='paginas'>
-              <Router ruta={rutaActual} setRoute={setRutaActual} tasks={tasks} setTasks={setTasks} ></Router> 
+              <Router ruta={rutaActual} setRoute={setRutaActual}></Router> 
           </div>
         </div>
       </div>

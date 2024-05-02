@@ -23,13 +23,13 @@ const NewPost = ({ setRoute }) => {
                     const user = usersData.find(user => user.nombre === loggedUser)
                     const userIdAsString = String(user.id)
 
-                    console.log("Body de la solicitud:", JSON.stringify({
-                        title: title,
-                        content: content,
-                        item_image: image,
-                        image_description: description,
-                        user_id: userIdAsString
-                    }));
+                    // console.log("Body de la solicitud:", JSON.stringify({
+                    //     title: title,
+                    //     content: content,
+                    //     item_image: image,
+                    //     image_description: description,
+                    //     user_id: userIdAsString
+                    // }))
 
                     const response = await fetch('http://127.0.0.1:3000/blogs', {
                         method: 'POST',

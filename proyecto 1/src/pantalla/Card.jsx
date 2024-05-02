@@ -3,7 +3,7 @@ import tresPuntos from '../Imagenes/tres_puntos.png'
 import React, { useState, useEffect, useRef } from 'react'
 import { useUser } from './UserContext'
 
-const Card = ({title, content, image, description, user, setRoute}) => {
+const Card = ({blogId, title, content, image, description, user, setRoute}) => {
     const [showOptions, setShowOptions] = useState(false)
     const modalRef = useRef(null)
     const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -33,7 +33,8 @@ const Card = ({title, content, image, description, user, setRoute}) => {
 
     const toEdit = () => {
         setShowOptions(false)
-        setRoute('/editPost')
+        // console.log(`Lo que debería de mandarse es: /editPost/${blogId}`)
+        setRoute(`/editPost/${blogId}`)
     }
 
     const handleDelete = () => {
@@ -97,6 +98,7 @@ const Card = ({title, content, image, description, user, setRoute}) => {
 }
 
 Card.propTypes = {
+    blogId: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,

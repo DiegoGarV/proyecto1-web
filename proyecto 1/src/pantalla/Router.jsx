@@ -6,7 +6,12 @@ import Login from './Login'
 import Signin from './Signin'
 import EditPost from './EditPost'
 
-function Router({ ruta, setRoute, tasks, setTasks }) {
+function Router({ ruta, setRoute }) {
+
+    let blogId = null;
+    if (ruta.startsWith('/editPost/')) {
+        blogId = ruta.split('/')[2]
+    }
 
     switch (ruta) {
         case "/":
@@ -18,8 +23,8 @@ function Router({ ruta, setRoute, tasks, setTasks }) {
             )
         case "/addPost":
             return <NewPost setRoute={setRoute}/>
-        case "/editPost":
-            return <EditPost setRoute={setRoute}/>
+        case ruta.startsWith("/editPost/") && ruta:
+            return <EditPost setRoute={setRoute} blogId={blogId}/>
         case "/login":
             return <Login setRoute={setRoute}/>
         case "/signin":
@@ -31,9 +36,7 @@ function Router({ ruta, setRoute, tasks, setTasks }) {
 
 Router.propTypes = {
     ruta: PropTypes.string.isRequired,
-    setRoute: PropTypes.func.isRequired,
-    tasks: PropTypes.array.isRequired,
-    setTasks: PropTypes.func.isRequired,
+    setRoute: PropTypes.func.isRequired
 };
 
 export default Router
