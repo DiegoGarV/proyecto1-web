@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import arrow from '../Imagenes/white_arrow.png'
 
@@ -156,6 +157,11 @@ const EditPost = ({ setRoute, blogId }) => {
             </div>
         </div>
     )
+}
+
+EditPost.propTypes = {
+    setRoute: PropTypes.func.isRequired,
+    blogId: PropTypes.string.isRequired
 }
 
 export default EditPost

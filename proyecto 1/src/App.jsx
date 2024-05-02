@@ -6,7 +6,7 @@ import Router from './pantalla/Router'
 function App() {
   
   const [rutaActual, setRutaActual] = useState("app")
-  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem('tasks')) || [])
+  const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
     console.log("Se ha montado el componente")
@@ -15,10 +15,6 @@ function App() {
     console.log(window.location)
 
   }, [])
-
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-  }, [tasks])
 
   const getBackgroundClass = () => {
     switch (rutaActual) {
@@ -42,7 +38,7 @@ function App() {
       <div id='root' className={getBackgroundClass()}>
         <div className='sitio-web'>
           <div className='paginas'>
-              <Router ruta={rutaActual} setRoute={setRutaActual}></Router> 
+              <Router ruta={rutaActual} setRoute={setRutaActual} searchValue={searchValue} setSearchValue={setSearchValue}></Router> 
           </div>
         </div>
       </div>

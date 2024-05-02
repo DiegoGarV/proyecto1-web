@@ -6,7 +6,7 @@ import Login from './Login'
 import Signin from './Signin'
 import EditPost from './EditPost'
 
-function Router({ ruta, setRoute }) {
+function Router({ ruta, setRoute, searchValue, setSearchValue }) {
 
     let blogId = null;
     if (ruta.startsWith('/editPost/')) {
@@ -17,8 +17,8 @@ function Router({ ruta, setRoute }) {
         case "/":
             return(
                 <>
-                    <Header setRoute={setRoute}/>
-                    <Content setRoute={setRoute}/>
+                    <Header setRoute={setRoute} setSearchValue={setSearchValue}/>
+                    <Content setRoute={setRoute} searchValue={searchValue}/>
                 </>
             )
         case "/addPost":
@@ -36,7 +36,9 @@ function Router({ ruta, setRoute }) {
 
 Router.propTypes = {
     ruta: PropTypes.string.isRequired,
-    setRoute: PropTypes.func.isRequired
+    setRoute: PropTypes.func.isRequired,
+    searchValue: PropTypes.string.isRequired,
+    setSearchValue: PropTypes.func.isRequired
 };
 
 export default Router

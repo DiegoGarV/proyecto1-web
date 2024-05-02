@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useUser } from './UserContext'
 import arrow from '../Imagenes/black_arrow.png'
@@ -91,6 +92,10 @@ const Login = ({ setRoute }) => {
             </div>
         </div>
     )
+}
+
+Login.propTypes = {
+    setRoute: PropTypes.func.isRequired
 }
 
 export default Login

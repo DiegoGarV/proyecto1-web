@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useUser } from './UserContext'
 import arrow from '../Imagenes/white_arrow.png'
@@ -145,6 +146,10 @@ const NewPost = ({ setRoute }) => {
             </div>
         </div>
     )
+}
+
+NewPost.propTypes = {
+    setRoute: PropTypes.func.isRequired
 }
 
 export default NewPost

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useUser } from './UserContext'
 import { useEffect, useState } from 'react'
 
-const Header = ({ setRoute }) => {
+const Header = ({ setRoute, setSearchValue }) => {
     const {logged, logout, loggedUser, permisos} = useUser()
     const [showAlert, setShowAlert] = useState(false)
 
@@ -34,6 +34,12 @@ const Header = ({ setRoute }) => {
     const closeAlert = () => {
         setShowAlert(false)
     }
+
+    const searchPost = (event) => {
+        if (event.key === 'Enter') {
+            setSearchValue(event.target.value)
+        }
+    }
     
     return (
         <div id='header' style={{
@@ -59,6 +65,7 @@ const Header = ({ setRoute }) => {
                     borderRadius: '5px',
                     border: 'none',
                 }} 
+                onKeyDown={searchPost}
             />
             <button 
                 style={{
@@ -102,6 +109,7 @@ const Header = ({ setRoute }) => {
 
 Header.protoType = {
     setRoute: PropTypes.func.isRequired,
+    setSearchValue: PropTypes.func.isRequired
 }
 
 export default Header

@@ -49,7 +49,7 @@ const Card = ({blogId, title, content, image, description, user, setRoute, refre
             if (response.ok) {
                 setRoute('/')
                 refreshPosts()
-                console.log(`Se borro el post ${blogId}`)
+                // console.log(`Se borro el post ${blogId}`)
             } else {
                 const data = await response.json()
                 console.log(`Error: ${data}`)
@@ -69,6 +69,7 @@ const Card = ({blogId, title, content, image, description, user, setRoute, refre
             justifyContent: 'center',
             paddingLeft: '20px',
             paddingRight: '20px',
+            paddingBottom: '20px',
             borderRadius: '20px',
             position: 'relative',
             border: '5px solid #c0240c',
@@ -121,7 +122,8 @@ Card.propTypes = {
     image: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired,
-    setRoute: PropTypes.func.isRequired
+    setRoute: PropTypes.func.isRequired,
+    refreshPosts: PropTypes.func.isRequired
 }
 
 export default Card

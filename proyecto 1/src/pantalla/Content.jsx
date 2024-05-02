@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types'
 import Card from './Card'
 import Loading from './Loading'
 import NoPosts from './NoPosts'
 import { useEffect, useState } from 'react'
 import gameLogo from '../Imagenes/game logo.png'
 
-const Content = ({ setRoute }) => {
+const Content = ({ setRoute, searchValue }) => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
 
@@ -43,9 +44,19 @@ const Content = ({ setRoute }) => {
         }
     }
 
+    const filteredData = data.filter(post =>
+        post.title.includes(searchValue) ||
+        post.username.includes(searchValue) ||
+        post.content.includes(searchValue)
+    )
+
     useEffect(() => {
-        apiCall()
-    }, [])
+        setLoading(true)
+        setTimeout(() => {
+            apiCall()
+            setLoading(false)
+        },1500)
+    }, [searchValue])
 
     if (loading) {
         return(<Loading />)
@@ -72,12 +83,17 @@ const Content = ({ setRoute }) => {
                 marginBottom: '20px'
             }} />
             <div className='datos' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                {data.map(elemento => (
+                {filteredData.map(elemento => (
                     <Card key={elemento.id} blogId={elemento.id} title={elemento.title} content={elemento.content} image={elemento.item_image} description={elemento.image_description} user={elemento.username} setRoute={setRoute} refreshPosts={apiCall}/>
                 ))}
             </div>
         </div>
     )
+}
+
+Content.propTypes = {
+    setRoute: PropTypes.func.isRequired,
+    searchValue: PropTypes.string.isRequired
 }
 
 export default Content
