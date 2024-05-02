@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useUser } from './UserContext'
+import arrow from '../Imagenes/black_arrow.png'
 
 const Login = ({ setRoute }) => {
     const { login, userName, userPermisos } = useUser()
@@ -34,13 +35,23 @@ const Login = ({ setRoute }) => {
         setRoute('/signin')
     }
     
+    const returnHome = () => {
+        setRoute('/')
+    }
+
     return (
         <div style={{
             height: '100vh',
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
             alignItems: 'center'
         }}>
+            <div id="return" style={{ alignSelf: 'start', margin: '10px' }}>
+                <button onClick={returnHome} style={{ display: 'flex', padding: '10px', alignItems: 'center', backgroundColor: 'transparent', color: 'black', border: 'none', cursor: 'pointer' }}>
+                    <img src={arrow} alt='return arrow' style={{width: '30%', height: '30%', marginRight: '5px', transform: 'scaleX(-1)'}}></img>
+                    <h2>Regresar</h2>
+                </button>
+            </div>
             <div id="card" style={{
                 width: '40%',
                 background: 'linear-gradient(to right, #faae46, #facd73)',

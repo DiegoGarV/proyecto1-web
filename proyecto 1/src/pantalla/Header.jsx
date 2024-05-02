@@ -15,24 +15,24 @@ const Header = ({ setRoute }) => {
         }
     }
 
-    useEffect(() => {
-        if (!logged) {
-            console.log(`El usuario y los permisos se borraron correctamente: ${loggedUser} ${permisos}`)
-        } else {
-            console.log(`El usuario y los permisos son: ${loggedUser} ${permisos}`)
-        }
-    }, [logged])
+    // useEffect(() => {
+    //     if (!logged) {
+    //         console.log(`El usuario y los permisos se borraron correctamente: ${loggedUser} ${permisos}`)
+    //     } else {
+    //         console.log(`El usuario y los permisos son: ${loggedUser} ${permisos}`)
+    //     }
+    // }, [logged])
 
     const toNewPost = () => {
         if (loggedUser) {
             setRoute('/addPost')
         } else {
-            setShowAlert(true) // Mostrar el mensaje de alerta
+            setShowAlert(true)
         }
     }
 
     const closeAlert = () => {
-        setShowAlert(false) // Ocultar el mensaje de alerta
+        setShowAlert(false)
     }
     
     return (

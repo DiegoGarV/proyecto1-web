@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useUser } from './UserContext'
+import arrow from '../Imagenes/black_arrow.png'
 
 const Signin = ({ setRoute }) => {
     const { login, userName, userPermisos } = useUser()
@@ -11,25 +12,35 @@ const Signin = ({ setRoute }) => {
     const handleSignin = async() => {
         try {
             if(password && usuario && repeatPassword){
-                const response = await fetch('http://127.0.0.1:3000/users', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        nombre: usuario,
-                        contrasena: password
-                    })
-                })
+                const res = await fetch('http://127.0.0.1:3000/users')
+                const jsonData = await res.json()
+                const usersData = jsonData.data
+    
+                const user = usersData.find(user => user.nombre === usuario)
 
-                if (response.ok) {
-                    userName(usuario)
-                    userPermisos('normal')
-                    login()
-                    setRoute('/')
+                if(user){
+                    setError('Ese usuario ya existe')
                 } else {
-                    const data = await response.json()
-                    setError(data.error || 'Error al crear usuario')
+                    const response = await fetch('http://127.0.0.1:3000/users', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            nombre: usuario,
+                            contrasena: password
+                        })
+                    })
+
+                    if (response.ok) {
+                        userName(usuario)
+                        userPermisos('normal')
+                        login()
+                        setRoute('/')
+                    } else {
+                        const data = await response.json()
+                        setError(data.error || 'Error al crear usuario')
+                    }
                 }
             } else {
                 setError('Las casillas no deben de estar vacias')
@@ -44,14 +55,24 @@ const Signin = ({ setRoute }) => {
     const toLogin = () => {
         setRoute('/login')
     }
+
+    const returnHome = () => {
+        setRoute('/')
+    }
     
     return (
         <div style={{
             height: '100vh',
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
             alignItems: 'center'
         }}>
+            <div id="return" style={{ alignSelf: 'start', margin: '10px' }}>
+                <button onClick={returnHome} style={{ display: 'flex', padding: '10px', alignItems: 'center', backgroundColor: 'transparent', color: 'black', border: 'none', cursor: 'pointer' }}>
+                    <img src={arrow} alt='return arrow' style={{width: '30%', height: '30%', marginRight: '5px', transform: 'scaleX(-1)'}}></img>
+                    <h2>Regresar</h2>
+                </button>
+            </div>
             <div id="card" style={{
                 width: '40%',
                 background: 'linear-gradient(to right, #faae46, #facd73)',
