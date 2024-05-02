@@ -3,7 +3,7 @@ import tresPuntos from '../Imagenes/tres_puntos.png'
 import React, { useState, useEffect, useRef } from 'react'
 import { useUser } from './UserContext'
 
-const Card = ({blogId, title, content, image, description, user, setRoute}) => {
+const Card = ({blogId, title, content, image, description, user, setRoute, refreshPosts}) => {
     const [showOptions, setShowOptions] = useState(false)
     const modalRef = useRef(null)
     const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -37,9 +37,26 @@ const Card = ({blogId, title, content, image, description, user, setRoute}) => {
         setRoute(`/editPost/${blogId}`)
     }
 
-    const handleDelete = () => {
+    const handleDelete = async() => {
         setShowOptions(false)
-        console.log("Se eliminó")
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/blogs/${blogId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (response.ok) {
+                setRoute('/')
+                refreshPosts()
+                console.log(`Se borro el post ${blogId}`)
+            } else {
+                const data = await response.json()
+                console.log(`Error: ${data}`)
+            }
+        } catch (error){
+            console.error('Error al cargar la API:', error)
+        }
     }
     
     return (

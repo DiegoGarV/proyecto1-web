@@ -73,11 +73,11 @@ const Content = ({ setRoute }) => {
             }} />
             <div className='datos' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 {data.map(elemento => (
-                    <Card key={elemento.id} blogId={elemento.id} title={elemento.title} content={elemento.content} image={elemento.item_image} description={elemento.image_description} user={elemento.username} setRoute={setRoute}/>
+                    <Card key={elemento.id} blogId={elemento.id} title={elemento.title} content={elemento.content} image={elemento.item_image} description={elemento.image_description} user={elemento.username} setRoute={setRoute} refreshPosts={apiCall}/>
                 ))}
             </div>
         </div>
-    );
+    )
 }
 
 export default Content
