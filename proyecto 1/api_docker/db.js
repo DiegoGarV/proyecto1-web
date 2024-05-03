@@ -22,9 +22,20 @@ export async function getAllUsers () {
   }
 }
 
-export async function createBlog (title, content, item_image, image_description) {
+export async function createBlog (title, content, item_image, image_description, user_id) {
   try {
-    const [result] = await conn.query(`INSERT INTO blogs (title, content, item_image, image_description) VALUES ('${title.replace(/'/g, '\'\'')}', '${content.replace(/'/g, '\'\'')}', '${item_image.replace(/'/g, '\'\'')}', '${image_description.replace(/'/g, '\'\'')}')`)
+    const [result] = await conn.query(`INSERT INTO blogs (title, content, item_image, image_description, user_id) VALUES ('${title.replace(/'/g, '\'\'')}', '${content.replace(/'/g, '\'\'')}', '${item_image.replace(/'/g, '\'\'')}', '${image_description.replace(/'/g, '\'\'')}', '${user_id.replace(/'/g, '\'\'')}')`)
+    return { status: 201, data: result }
+
+  } catch (e) {
+    console.log(e)
+    return { status: '400', error: 'Incorrect body format' }
+  }
+}
+
+export async function createUser (nombre, contrasena) {
+  try {
+    const [result] = await conn.query(`INSERT INTO users (nombre, contrasena, posicion) VALUES ('${nombre.replace(/'/g, '\'\'')}', '${contrasena.replace(/'/g, '\'\'')}', 'normal')`)
     return { status: 201, data: result }
 
   } catch (e) {

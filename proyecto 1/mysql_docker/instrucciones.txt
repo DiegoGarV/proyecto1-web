@@ -4,3 +4,7 @@ docker build -t mysql_blog .
 
 # Levanta la imagen
 docker run --name mysql_container -d -p 33068:3306 mysql_blog
+
+# Levantar el docker compose en el servidor
+sudo docker compose up
+

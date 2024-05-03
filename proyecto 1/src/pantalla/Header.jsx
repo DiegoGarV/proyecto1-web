@@ -11,6 +11,7 @@ const Header = ({ setRoute, setSearchValue }) => {
             logout()
             setRoute('/')
         } else {
+            window.history.pushState({},"","/login")
             setRoute('/login')
         }
     }
@@ -25,6 +26,7 @@ const Header = ({ setRoute, setSearchValue }) => {
 
     const toNewPost = () => {
         if (loggedUser) {
+            window.history.pushState({},"","/addPost")
             setRoute('/addPost')
         } else {
             setShowAlert(true)

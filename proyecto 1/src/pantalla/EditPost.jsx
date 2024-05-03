@@ -52,6 +52,7 @@ const EditPost = ({ setRoute, blogId }) => {
 
                     if (response.ok) {
                         setRoute('/')
+                        window.history.pushState({},"","/")
                     } else {
                         const data = await response.json()
                         setError(data.error || 'Error al crear el post')
@@ -80,6 +81,7 @@ const EditPost = ({ setRoute, blogId }) => {
 
     const returnHome = () => {
         setRoute('/')
+        window.history.pushState({},"","/")
     }
 
     // console.log("Body de la solicitud:", JSON.stringify({

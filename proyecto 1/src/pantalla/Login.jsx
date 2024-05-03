@@ -22,6 +22,7 @@ const Login = ({ setRoute }) => {
                 userPermisos(user.posicion)
                 login()
                 setRoute('/')
+                window.history.pushState({},"","/")
             } else {
                 setError('Usuario o contraseña no válidos')
             }
@@ -34,10 +35,12 @@ const Login = ({ setRoute }) => {
 
     const toSignin = () => {
         setRoute('/signin')
+        window.history.pushState({},"","/signin")
     }
     
     const returnHome = () => {
         setRoute('/')
+        window.history.pushState({},"","/")
     }
 
     return (

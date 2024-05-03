@@ -1,24 +1,14 @@
 import express from 'express'
 import cors from 'cors'
-// import { fileURLToPath } from 'url';
-import { dirname } from 'path'
-import {getAllBlogs, createBlog, deleteBlog, getBlogById, editBlog, getUserById} from './db.js'
+import {getAllBlogs, createBlog, deleteBlog, getBlogById, editBlog, getUserById, getAllUsers, createUser} from './db.js'
 import { swaggerDocs as V1SwaggerDocs } from './swagger.js'
 
 const app = express()
 const port = 3000
 
-// This line is necessary to parse the request body
-app.use(express.json({limit: '50mb'}))
-app.use(express.urlencoded({limit: '50mb'}))
-
 // Implementa cors
 console.log('enable Cors')
 app.use(cors())
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-app.use("/public/upload", express.static(__dirname + "/public/upload"))
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -27,6 +17,40 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening at http://127.0.0.1:${port}`)
   V1SwaggerDocs(app, port)
+})
+
+/**
+ * @swagger
+ * /blogs:
+ *   get:
+ *     summary: Obtener todos los blogs
+ *     description: Devuelve una lista de todos los blogs.
+ *     responses:
+ *       200:
+ *         description: Operación exitosa. Devuelve la lista de blogs.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+app.get('/blogs', async (req, res) => {
+  const blogs = await getAllBlogs()
+  res.status(blogs.status).json(blogs)
+})
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Obtener todos los usuarios
+ *     description: Devuelve una lista de todos los usuarios.
+ *     responses:
+ *       200:
+ *         description: Operación exitosa. Devuelve la lista de usuarios.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+app.get('/users', async (req, res) => {
+  const users = await getAllUsers()
+  res.status(users.status).json(users)
 })
 
 /**
@@ -48,7 +72,9 @@ app.listen(port, () => {
  *               item_image:
  *                 type: string
  *               image_description:
- *                 type: string  
+ *                 type: string
+ *               user_id:
+ *                 type: int
  *     responses:
  *       201:
  *         description: El blog fue creado exitosamente.
@@ -56,26 +82,37 @@ app.listen(port, () => {
  *         description: El formato en el cuerpo de la solicitud es incorrecto.
  */
 app.post('/blogs', async (req, res) => {
-  const [title, content, item_image, image_description] = [req.body.title, req.body.content, req.body.item_image, req.body.image_description]
-  const blogs = await createBlog(title, content, item_image, image_description)
+  const [title, content, item_image, image_description, user_id] = [req.body.title, req.body.content, req.body.item_image, req.body.image_description, req.body.user_id]
+  const blogs = await createBlog(title, content, item_image, image_description, user_id)
   res.status(blogs.status).json(blogs)
 })
 
 /**
  * @swagger
- * /blogs:
- *   get:
- *     summary: Obtener todos los blogs
- *     description: Devuelve una lista de todos los blogs.
+ * /users:
+ *   post:
+ *     summary: Crear un nuevo usuario
+ *     description: Endpoint para crear un nuevo usuario.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               contrasena:
+ *                 type: string
  *     responses:
- *       200:
- *         description: Operación exitosa. Devuelve la lista de blogs.
- *       500:
- *         description: Error interno del servidor.
+ *       201:
+ *         description: El usuario fue creado exitosamente.
+ *       400:
+ *         description: El formato en el cuerpo de la solicitud es incorrecto.
  */
-app.get('/blogs', async (req, res) => {
-  const blogs = await getAllBlogs()
-  res.status(blogs.status).json(blogs)
+app.post('/users', async (req, res) => {
+  const [nombre, contrasena] = [req.body.nombre, req.body.contrasena]
+  const user = await createUser(nombre, contrasena)
+  res.status(user.status).json(user)
 })
 
 /**

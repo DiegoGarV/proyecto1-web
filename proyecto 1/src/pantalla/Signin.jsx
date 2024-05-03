@@ -38,6 +38,7 @@ const Signin = ({ setRoute }) => {
                         userPermisos('normal')
                         login()
                         setRoute('/')
+                        window.history.pushState({},"","/")
                     } else {
                         const data = await response.json()
                         setError(data.error || 'Error al crear usuario')
@@ -55,10 +56,12 @@ const Signin = ({ setRoute }) => {
 
     const toLogin = () => {
         setRoute('/login')
+        window.history.pushState({},"","/login")
     }
 
     const returnHome = () => {
         setRoute('/')
+        window.history.pushState({},"","/")
     }
     
     return (

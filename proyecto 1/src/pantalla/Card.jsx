@@ -35,6 +35,7 @@ const Card = ({blogId, title, content, image, description, user, setRoute, refre
         setShowOptions(false)
         // console.log(`Lo que debería de mandarse es: /editPost/${blogId}`)
         setRoute(`/editPost/${blogId}`)
+        window.history.pushState({},"",`/editPost/${blogId}`)
     }
 
     const handleDelete = async() => {
@@ -48,6 +49,7 @@ const Card = ({blogId, title, content, image, description, user, setRoute, refre
             })
             if (response.ok) {
                 setRoute('/')
+                window.history.pushState({},"","/")
                 refreshPosts()
                 // console.log(`Se borro el post ${blogId}`)
             } else {

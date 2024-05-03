@@ -48,6 +48,7 @@ const NewPost = ({ setRoute }) => {
 
                     if (response.ok) {
                         setRoute('/')
+                        window.history.pushState({},"","/")
                     } else {
                         const data = await response.json()
                         setError(data.error || 'Error al crear el post')
@@ -76,6 +77,7 @@ const NewPost = ({ setRoute }) => {
 
     const returnHome = () => {
         setRoute('/')
+        window.history.pushState({},"","/")
     }
     
     return (
