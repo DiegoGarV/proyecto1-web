@@ -11,7 +11,7 @@ const Content = ({ setRoute, searchValue }) => {
 
     async function apiCall() {
         try {
-            const response = await fetch('http://127.0.0.1:3000/blogs')
+            const response = await fetch('http://127.0.0.1:3404/blogs')
             const jsonData = await response.json()
     
             const blogsData = jsonData.data
@@ -19,7 +19,7 @@ const Content = ({ setRoute, searchValue }) => {
             const enhancedBlogData = await Promise.all(
                 blogsData.map(async (blog) => {
                     const userId = blog.user_id
-                    const userResponse = await fetch(`http://127.0.0.1:3000/users/${userId}`)
+                    const userResponse = await fetch(`http://127.0.0.1:3404/users/${userId}`)
                     const userData = await userResponse.json()
                     // console.log(`Los datos obtenidos del id ${userId} son:`, userData)
                     if (userData && userData.data && userData.data[0].nombre) {

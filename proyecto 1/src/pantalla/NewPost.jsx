@@ -17,7 +17,7 @@ const NewPost = ({ setRoute }) => {
 
             if(title && content && image){
                 if (validarURL(image)) {
-                    const res = await fetch('http://127.0.0.1:3000/users')
+                    const res = await fetch('http://127.0.0.1:3404/users')
                     const jsonData = await res.json()
                     const usersData = jsonData.data
         
@@ -32,7 +32,7 @@ const NewPost = ({ setRoute }) => {
                     //     user_id: userIdAsString
                     // }))
 
-                    const response = await fetch('http://127.0.0.1:3000/blogs', {
+                    const response = await fetch('http://127.0.0.1:3404/blogs', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm install
 # Bundle app source
 COPY . .
-# Expose port 3000
-EXPOSE  3000
+# Expose port 3404
+EXPOSE  3404
 
 CMD ["npm", "start"]
