@@ -1,11 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import {getAllBlogs, createBlog, deleteBlog, getBlogById, editBlog, getUserById, getAllUsers, createUser} from './db.js'
+import {getAllBlogs, createBlog, deleteBlog, getBlogById, editBlog, getUserById, getAllUsers, createUser, editUser} from './db.js'
 import { swaggerDocs as V1SwaggerDocs } from './swagger.js'
 
 const app = express()
-const port = 3410
+const port = 3560
 
 app.use(bodyParser.json())
 
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Server listening at http://127.0.0.1:${port}`)
+  console.log(`Server listening at http://uwu-guate.site:${port}`)
   V1SwaggerDocs(app, port)
 })
 
@@ -152,6 +152,38 @@ app.delete('/blogs/:id', async (req,res) =>{
 
 /**
  * @swagger
+ * /users/{id}:
+ *   delete:
+ *     summary: Eliminar un user por ID
+ *     description: Elimina un user específico según el ID proporcionado.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del user a eliminar.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       204:
+ *         description: Operación exitosa. El blog ha sido eliminado.
+ *       404:
+ *         description: Blog no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+app.delete('/users/:id', async (req,res) =>{
+  const id = req.params.id
+  console.log(id)
+  const result = await deleteUser(id)
+  if (result.status === 404) {
+    res.status(404).json({ error: 'Blog not found' })
+  } else {
+    res.status(result.status).json({status: result.status})
+  }
+})
+
+/**
+ * @swagger
  * /blogs/{id}:
  *   get:
  *     summary: Obtener un blog por ID
@@ -248,6 +280,48 @@ app.put('/blogs/:id', async (req, res) => {
   const [title, content, item_image, image_description] = [req.body.title, req.body.content, req.body.item_image, req.body.image_description]
   const blog = await editBlog(id, title, content, item_image, image_description)
   res.status(blog.status).json(blog)
+})
+
+/**
+ * @swagger
+ * /blogs/{id}:
+ *   put:
+ *     summary: Actualizar un usuario por ID
+ *     description: Actualiza un usuario específico según el ID proporcionado.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del user a actualizar.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *               contrasena:
+ *                 type: string
+ *               posicion:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Operación exitosa. Devuelve el blog actualizado.
+ *       404:
+ *         description: Blog no encontrado.
+ *       400:
+ *         description: El formato en el cuerpo de la solicitud es incorrecto.
+ */
+app.put('/users/:id', async (req, res) => {
+  const id = req.params.id
+  console.log(id)
+  const [nombre, contrasena, posicion] = [req.body.nombre, req.body.contrasena, req.body.posicion]
+  const usuario = await editUser(id, nombre, contrasena, posicion)
+  res.status(usuario.status).json(usuario)
 })
 
 /**

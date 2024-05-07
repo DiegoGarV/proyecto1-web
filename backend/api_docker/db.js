@@ -59,6 +59,21 @@ export async function deleteBlog (id) {
   }
 }
 
+export async function deleteUser (id) {
+  try {
+    const [existingUser] = await conn.query(`SELECT * FROM users WHERE id = ${id}`)
+    if (existingUser.length === 0) {
+      return { status: 404, error: 'User not found' }
+    }
+
+    const [result] = await conn.query(`DELETE FROM users WHERE id = ${id}`)
+    return { status: 204, data: result }
+  } catch (e) {
+    console.log(e)
+    return { status: 500, error: e }
+  }
+}
+
 export async function getBlogById (id) {
   try {
     const [blog] = await conn.query(`SELECT * FROM blogs WHERE id = ${id}`)
@@ -93,6 +108,22 @@ export async function editBlog (id, title, content, item_image, image_descriptio
     }
 
     const [result] = await conn.query(`UPDATE blogs SET title = '${title.replace(/'/g, '\'\'')}', content = '${content.replace(/'/g, '\'\'')}', item_image = '${item_image.replace(/'/g, '\'\'')}', image_description = '${image_description.replace(/'/g, '\'\'')}' WHERE id = ${id}`)
+    return { status: 200, data: result }
+
+  } catch (e) {
+    console.log(e)
+    return { status: '400', error: 'Incorrect body format' }
+  }
+}
+
+export async function editUser (id, nombre, contrasena, posicion){
+  try {
+    const [existingUser] = await conn.query(`SELECT * FROM blogs WHERE id = ${id}`)
+    if (existingBlog.length === 0) {
+      return { status: 404, error: 'Blog not found' }
+    }
+
+    const [result] = await conn.query(`UPDATE users SET title = '${nombre.replace(/'/g, '\'\'')}', content = '${contrasena.replace(/'/g, '\'\'')}', item_image = '${posicion.replace(/'/g, '\'\'')}' WHERE id = ${id}`)
     return { status: 200, data: result }
 
   } catch (e) {

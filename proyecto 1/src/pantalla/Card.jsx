@@ -41,7 +41,7 @@ const Card = ({blogId, title, content, image, description, user, setRoute, refre
     const handleDelete = async() => {
         setShowOptions(false)
         try {
-            const response = await fetch(`http://127.0.0.1:3410/blogs/${blogId}`, {
+            const response = await fetch(`http://uwu-guate.site:3560/blogs/${blogId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

@@ -11,7 +11,7 @@ const EditPost = ({ setRoute, blogId }) => {
 
     const getThisPost = async() => {
         try {
-            const res = await fetch(`http://127.0.0.1:3410/blogs/${blogId}`)
+            const res = await fetch(`http://uwu-guate.site:3560/blogs/${blogId}`)
             const jsonData = await res.json()
             // console.log('Respuesta JSON:', jsonData)
             const thisPost = jsonData.data[0]
@@ -37,7 +37,7 @@ const EditPost = ({ setRoute, blogId }) => {
 
             if(title && content && image){
                 if (validarURL(image)) {
-                    const response = await fetch(`http://127.0.0.1:3410/blogs/${blogId}`, {
+                    const response = await fetch(`uwu-guate.site:3560/blogs/${blogId}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'

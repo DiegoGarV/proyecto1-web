@@ -12,12 +12,15 @@ services:
       MYSQL_DATABASE: blog_db
     volumes:
       - "mysql-data:/var/lib/mysql"
+    image: stardew-blog-mysql-1
+
   api:
     build: ./api_docker
     ports:
-      - "3410:3410"
+      - "3560:3560"
     depends_on:
       - mysql
+    image: stardew-blog-api-1
 
 volumes:
   mysql-data:
