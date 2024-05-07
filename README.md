@@ -4,13 +4,13 @@
 
 * [Requisitos](#requisitos)
 
-* [Iniciar la API](#Iniciar-la-API)
+* [Iniciar la API](#iniciar-la-api)
 
-* [Iniciar el frontend](#Iniciar-el-frontend)
+* [Iniciar el frontend](#iniciar-el-frontend)
 
-* [Privilegios de administrador](#Privilegios-de-administrador)
+* [Privilegios de administrador](#privilegios-de-administrador)
 
-* [URL del proyecto](#URL-del-proyecto)
+* [URL del proyecto](#url-del-proyecto)
 
 ## Requisitos
 <p>Es necesario descargar node.js y npm para que el proyecto funcione. Node.js se puede instalar desde aquí https://nodejs.org/ y luego para que funcione hay que ir a la carpeta del proyecto "proyecto1-web" y por último colocar el comando npm install para instalar todas las dependencias.</p>
@@ -29,9 +29,13 @@
 
 <p>Para iniciar el frontend hay que dirigirse a la carpeta "proyecto 1" .</p>
 <p>"./proyecto1-web/proyecto 1"</p>
-<p>Luego hay que escribir el comando que inicia el proyecto vite.</p>
+<p>Luego hay que escribir el comando que levanta el docker container del front.</p>
 <p>  - En windows</p>
-<p>    npm run dev</p>
+<p>    docker build -t stardew_blog_gg:latest .</p>
+<p>    docker run --name stardew-blog-front -d -p 3777:5173 stardew_blog_gg</p>
+<p>  - En ubuntu</p>
+<p>    sudo docker build -t stardew_blog_gg:latest .</p>
+<p>    sudo docker run --name stardew-blog-front -d -p 3777:5173 stardew_blog_gg</p>
 
 ## Privilegios de administrador
 
@@ -44,4 +48,4 @@
 ## URL del proyecto
 
 <p>El blog puede verse en este link:</p>
-<p>http://uwu-guate.site:3560</p>
+<p>http://uwu-guate.site:3777</p>
