@@ -118,12 +118,12 @@ export async function editBlog (id, title, content, item_image, image_descriptio
 
 export async function editUser (id, nombre, contrasena, posicion){
   try {
-    const [existingUser] = await conn.query(`SELECT * FROM blogs WHERE id = ${id}`)
-    if (existingBlog.length === 0) {
-      return { status: 404, error: 'Blog not found' }
+    const [existingUser] = await conn.query(`SELECT * FROM users WHERE id = ${id}`)
+    if (existingUser.length === 0) {
+      return { status: 404, error: 'User not found' }
     }
 
-    const [result] = await conn.query(`UPDATE users SET title = '${nombre.replace(/'/g, '\'\'')}', content = '${contrasena.replace(/'/g, '\'\'')}', item_image = '${posicion.replace(/'/g, '\'\'')}' WHERE id = ${id}`)
+    const [result] = await conn.query(`UPDATE users SET nombre = '${nombre.replace(/'/g, '\'\'')}', contrasena = '${contrasena.replace(/'/g, '\'\'')}', posicion = '${posicion.replace(/'/g, '\'\'')}' WHERE id = ${id}`)
     return { status: 200, data: result }
 
   } catch (e) {

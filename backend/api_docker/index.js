@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import {getAllBlogs, createBlog, deleteBlog, getBlogById, editBlog, getUserById, getAllUsers, createUser, editUser} from './db.js'
+import {getAllBlogs, createBlog, deleteBlog, getBlogById, editBlog, getUserById, getAllUsers, createUser, editUser, deleteUser} from './db.js'
 import { swaggerDocs as V1SwaggerDocs } from './swagger.js'
 
 const app = express()
