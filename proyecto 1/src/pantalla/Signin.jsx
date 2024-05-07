@@ -13,7 +13,7 @@ const Signin = ({ setRoute }) => {
     const handleSignin = async() => {
         try {
             if(password && usuario && repeatPassword){
-                const res = await fetch('http://127.0.0.1:3404/users')
+                const res = await fetch('http://127.0.0.1:3410/users')
                 const jsonData = await res.json()
                 const usersData = jsonData.data
     
@@ -22,7 +22,7 @@ const Signin = ({ setRoute }) => {
                 if(user){
                     setError('Ese usuario ya existe')
                 } else {
-                    const response = await fetch('http://127.0.0.1:3404/users', {
+                    const response = await fetch('http://127.0.0.1:3410/users', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

@@ -5,7 +5,7 @@ import {getAllBlogs, createBlog, deleteBlog, getBlogById, editBlog, getUserById,
 import { swaggerDocs as V1SwaggerDocs } from './swagger.js'
 
 const app = express()
-const port = 3404
+const port = 3410
 
 app.use(bodyParser.json())
 
