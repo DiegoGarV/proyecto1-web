@@ -7,10 +7,12 @@
 * [Iniciar la API](#iniciar-la-api)
 
 * [Iniciar el frontend](#iniciar-el-frontend)
+  
+* [URL del proyecto](#url-del-proyecto)
 
 * [Privilegios de administrador](#privilegios-de-administrador)
 
-* [URL del proyecto](#url-del-proyecto)
+* [Usuario no administrador](#usuario-no-administrador)
 
 ## Requisitos
 <p>Es necesario descargar node.js y npm para que el proyecto funcione. Node.js se puede instalar desde aquí https://nodejs.org/ y luego para que funcione hay que ir a la carpeta del proyecto "proyecto1-web" y por último colocar el comando npm install para instalar todas las dependencias.</p>
@@ -37,6 +39,11 @@
 <p>    sudo docker build -t stardew_blog_gg:latest .</p>
 <p>    sudo docker run --name stardew-blog-front -d -p 3777:5173 stardew_blog_gg</p>
 
+## URL del proyecto
+
+<p>El blog puede verse en este link:</p>
+<p>http://uwu-guate.site:3777</p>
+
 ## Privilegios de administrador
 
 <p>El administrador puede borrar y editar todos los posts en el blog, independientemente si fueron hechos por él o no.</p>
@@ -45,7 +52,10 @@
 <p>Contraseñá:</p>
 <p>12345</p>
 
-## URL del proyecto
+## Usuario no administrador
 
-<p>El blog puede verse en este link:</p>
-<p>http://uwu-guate.site:3777</p>
+<p>Si por alguna razón no se puede crear un usuario en el apartado de registar usar este.</p>
+<p>Usuario:</p>
+<p>MrMelard</p>
+<p>Contraseñá:</p>
+<p>bigpops</p>
